@@ -1,0 +1,63 @@
+.shows {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 35px;
+}
+
+.shows a {
+    text-decoration: none;
+    color: black;
+}
+
+.showStar {
+    max-width: 200px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.show {
+    background: white;
+    border-bottom-right-radius: 50px;
+}
+
+.tvPagination {
+    display: flex;
+    margin-left: 50%;
+    margin-top: 50px;
+    gap: 10px;
+}
+
+.tvPagination button {
+    font-size: 15px;
+    color: #F6F6F6;
+}
+
+.tvPrev {
+    background: #292A2A;
+    border: 0;
+    height: 30px;
+    width: 50px;
+    border-bottom-left-radius: 15px;
+    cursor: pointer;
+}
+
+.tvNext {
+    background: #292A2A;
+    border: 0;
+    height: 30px;
+    width: 50px;
+    border-top-right-radius: 15px;
+    cursor: pointer;
+}
+
+.tvFooter {
+    height: 50px;
+    width: 100%;
+    margin-top: 50px;
+    background: #3C3D3D;
+    opacity: 0.9;
+}

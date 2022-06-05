@@ -1,0 +1,29 @@
+.pagination {
+    display: flex;
+    margin-left: 50%;
+    margin-top: 50px;
+    gap: 10px;
+}
+
+.prev {
+    background: #292A2A;
+    border: 0;
+    height: 30px;
+    width: 50px;
+    border-bottom-left-radius: 15px;
+    cursor: pointer;
+}
+
+.next {
+    background: #292A2A;
+    border: 0;
+    height: 30px;
+    width: 50px;
+    border-top-right-radius: 15px;
+    cursor: pointer;
+}
+
+.pagination button {
+    font-size: 15px;
+    color: #F6F6F6;
+}

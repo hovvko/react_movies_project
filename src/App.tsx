@@ -1,28 +1,21 @@
-import React, {FC, useEffect} from 'react';
-import {NavigationMenu} from "./components";
-import {useAppDispatch, useAppSelector} from "./hooks";
-import {getGenres, getMovies} from "./redux";
-import {moviesService} from "./services/movie.service";
-import {log} from "util";
+import React, {FC} from 'react';
+import {Navigate, Route, Routes} from 'react-router-dom';
+
+import {NavigationMenu} from './components';
+import {MovieDetailsPage, MovieListPage, TrendingPage, TvDetailsPage, TvPage} from './pages';
 
 const App: FC = () => {
-    const dispatch = useAppDispatch();
-    //
-    const {movies} = useAppSelector(state => state.movieReducer);
-    // const selector = useAppSelector(state => state.genreReducer)
-    //
-    useEffect(()=> {
-        dispatch(getMovies({page: 1}))
-        // dispatch(getGenres())
-    }, [dispatch])
-    //
-    console.log(movies)
-    // console.log(selector)
-
     return (
-        <div>
-            <NavigationMenu/>
-        </div>
+        <Routes>
+            <Route path={'/'} element={<NavigationMenu/>}>
+                <Route index element={<Navigate to={'movies'}/>}/>
+                <Route path={'movies'} element={<MovieListPage/>}/>
+                <Route path={'movies/:id'} element={<MovieDetailsPage/>}/>
+                <Route path={'movieTrending'} element={<TrendingPage/>}/>
+                <Route path={'tv'} element={<TvPage/>}/>
+                <Route path={'tv/:id'} element={<TvDetailsPage/>}/>
+            </Route>
+        </Routes>
     );
 };
 

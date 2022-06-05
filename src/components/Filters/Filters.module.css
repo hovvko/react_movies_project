@@ -1,0 +1,38 @@
+.filters {
+    background: #F6F6F6;
+    margin-top: 60px;
+    opacity: 0.9;
+}
+
+.list {
+    list-style-type: none;
+    margin-top: 80px;
+    margin-left: -10px;
+    display: flex;
+    position: relative;
+    gap: 15px;
+}
+
+.liGenre {
+    margin-top: 10px;
+}
+
+.genreName {
+    cursor: pointer;
+}
+
+.genreName:hover {
+    color: darkgrey;
+}
+
+.dark {
+    background: black;
+}
+
+.light {
+    background: #F6F6F6;
+}
+
+.tvFilters {
+    margin-left: 70px;
+}
