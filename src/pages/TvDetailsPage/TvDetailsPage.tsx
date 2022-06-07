@@ -2,24 +2,31 @@ import React, {FC, useEffect, useState} from 'react';
 import {useLocation, useParams} from 'react-router-dom';
 
 import {ITv} from '../../models';
-import {tvService} from '../../services';
 import {TvDetails} from '../../components';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {getTvShowById} from '../../redux';
 
 const TvDetailsPage: FC = () => {
     const [show, setShow] = useState<ITv | null>(null);
+    const {tvShow} = useAppSelector(state => state.tvReducer);
 
     const stateShow = useLocation().state as ITv;
     const {id} = useParams<{ id: string }>();
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (id) {
+            dispatch(getTvShowById({id: +id}));
+        }
+    }, [id, dispatch]);
 
     useEffect(() => {
         if (stateShow) {
             setShow(stateShow);
         } else {
-            if (id) {
-                tvService.getById(+id).then(({data}) => setShow(data));
-            }
+            setShow(tvShow);
         }
-    }, [stateShow, id]);
+    }, [stateShow, tvShow]);
 
     return (
         <div>

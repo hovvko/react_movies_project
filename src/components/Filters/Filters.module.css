@@ -2,6 +2,7 @@
     background: #F6F6F6;
     margin-top: 60px;
     opacity: 0.9;
+    user-select: none;
 }
 
 .list {

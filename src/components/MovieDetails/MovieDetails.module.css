@@ -3,12 +3,14 @@
     height: 100%;
     position: absolute;
     opacity: 0.9;
+    user-select: none;
 }
 
 .poster {
     position: absolute;
     margin-top: 150px;
     margin-left: 150px;
+    user-select: none;
 }
 
 .title {

@@ -4,6 +4,7 @@ import {useLocation} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getGenres, getTvGenres} from '../../redux';
 import css from './GenreBadge.module.css';
+import {locationUrls} from "../../configs";
 
 interface IProps {
     genre_ids: number[];
@@ -47,7 +48,7 @@ const GenreBadge: FC<IProps> = ({genre_ids}) => {
         }
     }
 
-    if (pathname === '/movies') {
+    if (pathname === locationUrls.movies || pathname === locationUrls.movieTrending) {
         return (
             <div className={css.genres}>
                 {

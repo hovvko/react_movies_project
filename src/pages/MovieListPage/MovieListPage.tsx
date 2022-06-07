@@ -1,11 +1,10 @@
 import React, {FC, useEffect} from 'react';
-import {Link, useSearchParams} from 'react-router-dom';
+import {useSearchParams} from 'react-router-dom';
 
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getMovies} from '../../redux';
 import css from './MovieListPage.module.css';
-import StarRatings from 'react-star-ratings';
-import {Filters, GenreBadge, MovieInfo, Pagination, PosterPreview} from '../../components';
+import {Filters, Multimedia, Pagination} from '../../components';
 
 const MovieListPage: FC = () => {
     const [query] = useSearchParams({page: '1'});
@@ -24,25 +23,7 @@ const MovieListPage: FC = () => {
             <Filters/>
             <div className={css.movies}>
                 {
-                    movies.map(movie =>
-                        <Link key={movie.id} to={movie.id.toString()} className={css.movieLink} state={movie}>
-                            <div className={css.movie}>
-                                <PosterPreview key={movie.poster_path} poster_path={movie.poster_path}/>
-                                <div className={css.star}>
-                                    <StarRatings
-                                        numberOfStars={10}
-                                        rating={movie.vote_average}
-                                        starDimension='10px'
-                                        starSpacing='3px'
-                                        starRatedColor={'blue'}
-                                    />
-                                    <span className={css.voteRating}>{movie.vote_average}</span>
-                                </div>
-                                <MovieInfo key={movie.title} title={movie.title}/>
-                                <GenreBadge key={movie.overview} genre_ids={movie.genre_ids}/>
-                            </div>
-                        </Link>
-                    )
+                    movies.map(movie => <Multimedia key={movie.id} multimedia={movie}/>)
                 }
             </div>
             <Pagination/>

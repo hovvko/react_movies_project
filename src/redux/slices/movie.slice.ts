@@ -5,10 +5,14 @@ import {moviesService} from '../../services';
 
 interface IState {
     movies: IMovie[];
+    movieById: IMovie | null;
+    trendingMovies: IMovie[];
 }
 
 const initialState: IState = {
-    movies: []
+    movies: [],
+    movieById: null,
+    trendingMovies: []
 };
 
 const getMovies = createAsyncThunk<IMovie[], { page: number }>(
@@ -24,6 +28,19 @@ const getMovies = createAsyncThunk<IMovie[], { page: number }>(
     }
 );
 
+const getById = createAsyncThunk<IMovie, { id: number }>(
+    'movieSlice/getById',
+    async ({id}, {rejectWithValue}) => {
+        try {
+            const {data} = await moviesService.getByID(id);
+
+            return data;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+)
+
 const filterWithGenres = createAsyncThunk<IMovie[], { page: number, genres: number[] }>(
     'movieSlice/filterWithGenres',
     async ({page, genres}, {rejectWithValue}) => {
@@ -37,6 +54,18 @@ const filterWithGenres = createAsyncThunk<IMovie[], { page: number, genres: numb
     }
 );
 
+const getTrendingMovies = createAsyncThunk<IMovie[], void>(
+    'movieSlice/getMoviesTrending',
+    async (_, {rejectWithValue}) => {
+        try {
+            const {data: {results}} = await moviesService.getTrending();
+
+            return results;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
 
 const movieSlice = createSlice({
     name: 'movieSlice',
@@ -47,8 +76,14 @@ const movieSlice = createSlice({
             .addCase(getMovies.fulfilled, (state, action) => {
                 state.movies = action.payload;
             })
+            .addCase(getById.fulfilled, (state, action) => {
+                state.movieById = action.payload;
+            })
             .addCase(filterWithGenres.fulfilled, (state, action) => {
                 state.movies = action.payload;
+            })
+            .addCase(getTrendingMovies.fulfilled, (state, action) => {
+                state.trendingMovies = action.payload;
             })
     }
 })
@@ -61,6 +96,8 @@ export {
 
 export {
     getMovies,
-    filterWithGenres
+    filterWithGenres,
+    getById,
+    getTrendingMovies
 };
 

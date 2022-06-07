@@ -7,3 +7,4 @@ export * from './MovieDetails/MovieDetails';
 export * from './Filters/Filters';
 export * from './Pagination/Pagination';
 export * from './TvDetails/TvDetails';
+export * from './Multimedia/Multimedia';

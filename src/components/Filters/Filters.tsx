@@ -13,7 +13,7 @@ const Filters: FC = () => {
     const [checkedTvGenreIds] = useState<number[]>([]);
     const [checkedGenreIds] = useState<number[]>([]);
 
-    const {search, pathname} = useLocation();
+    const {search, pathname, } = useLocation();
     const dispatch = useAppDispatch();
 
     const checked = (genreId: number): void => {

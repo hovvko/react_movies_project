@@ -13,7 +13,7 @@ const Searcher: FC = () => {
     const [movies, setMovies] = useState<IMovie[] | ITv[]>([]);
     const {pathname} = useLocation();
 
-    const link: string = (pathname.includes(locationUrls.movies)) ? locationUrls.movies : locationUrls.tv;
+    const link: string = (pathname.includes(locationUrls.movies) || pathname.includes('/movieTrending')) ? locationUrls.movies : locationUrls.tv;
 
     const handleFilter = (event: ChangeEvent<HTMLInputElement>) => {
         const searchWord = event.target.value;
@@ -24,7 +24,7 @@ const Searcher: FC = () => {
             setMovies([]);
         } else {
 
-            if (pathname.includes(locationUrls.movies)) {
+            if (pathname.includes(locationUrls.movies) || pathname.includes('/movieTrending')) {
                 moviesService.search(searchWord).then(({data: {results}}) => setMovies(results));
             }
             if (pathname.includes(locationUrls.tv)) {
@@ -67,7 +67,7 @@ const Searcher: FC = () => {
                         return (
                             <Link className={css.dataItem} to={`${link}/${value.id}`} key={value.id}>
                                 <p>
-                                    {(pathname.includes(locationUrls.movies)) ? value.title : value.name}
+                                    {(pathname.includes(locationUrls.movies) || pathname.includes('/movieTrending')) ? value.title : value.name}
                                 </p>
                             </Link>
                         );

@@ -5,10 +5,12 @@ import {tvService} from '../../services';
 
 interface IState {
     tv: ITv[];
+    tvShow: ITv | null;
 }
 
 const initialState: IState = {
-    tv: []
+    tv: [],
+    tvShow: null
 };
 
 const getTv = createAsyncThunk<ITv[], { page: number }>(
@@ -18,6 +20,19 @@ const getTv = createAsyncThunk<ITv[], { page: number }>(
             const {data: {results}} = await tvService.getAll(page);
 
             return results;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
+
+const getTvShowById = createAsyncThunk<ITv, { id: number }>(
+    'tvSlice/getById',
+    async ({id}, {rejectWithValue}) => {
+        try {
+            const {data} = await tvService.getById(id);
+
+            return data;
         } catch (error) {
             return rejectWithValue(error);
         }
@@ -49,6 +64,9 @@ const tvSlice = createSlice({
             .addCase(filterWithTvGenres.fulfilled, (state, action) => {
                 state.tv = action.payload.filter(show => show.poster_path !== null);
             })
+            .addCase(getTvShowById.fulfilled, (state, action) => {
+                state.tvShow = action.payload;
+            })
     }
 });
 
@@ -60,5 +78,6 @@ export {
 
 export {
     getTv,
-    filterWithTvGenres
+    filterWithTvGenres,
+    getTvShowById
 };
